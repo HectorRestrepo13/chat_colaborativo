@@ -19,10 +19,10 @@ export const tbl_usuarios = sequelize.define('Usuarios', {
     },
     foto_perfil: {
         type: DataTypes.STRING(155),
-        allowNull: false
+        allowNull: true
     },
     password: {
-        type: DataTypes.STRING(45),
+        type: DataTypes.STRING(100),
         allowNull: false
     },
     estado: {

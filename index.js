@@ -8,10 +8,34 @@ import './src/Models/Roles.js'
 
 // Inicializar dotenv para cargar variables de entorno
 dotenv.config();
-
-
 // Inicializar Express
 const app = express();
+
+
+
+
+
+import { fileURLToPath } from 'url';
+import path from 'path'
+
+
+// En Node.js, cuando se utiliza CommonJS (CJS), __dirname y _
+// _filename están disponibles por defecto y representan el directorio actual y
+//  la ruta del archivo actual, respectivamente. Sin embargo, cuando se utiliza ECMAScript
+//   Modules (ESM) especificando "type": "module" en el archivo package.json, estas variables 
+//   no están disponibles. Para obtener el mismo resultado, necesitas usar la API de import.meta.url.
+
+// Obtener la ruta del archivo actual y el directorio actual
+const __filename = fileURLToPath(import.meta.url);  // import.meta.url: Proporciona la URL del módulo actual.
+const __dirname = path.dirname(__filename);
+
+// Servir archivos estáticos desde la carpeta "public/uploads"
+app.use('/uploads', express.static(path.join(__dirname, './public/uploads')));
+
+
+
+
+
 
 
 // Configuración de CORS para permitir solicitudes desde múltiples orígenes
@@ -25,7 +49,7 @@ app.use(cors({
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'multipart/form-data'],
 }));
 
 app.use(express.json());
